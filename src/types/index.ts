@@ -196,4 +196,9 @@ export type NavigationScreen =
   | 'approvals'
   | 'swap'
   | 'nfts'
-  | 'price_alerts';
+  | 'price_alerts'
+  | 'walletconnect'
+  | 'multichain'
+  | 'staking'
+  | 'bridge'
+  | 'security_scanner';

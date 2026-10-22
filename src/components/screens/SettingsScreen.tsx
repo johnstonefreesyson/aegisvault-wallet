@@ -37,6 +37,7 @@ interface SettingsScreenProps {
   onOpenBackupSeed: () => void;
   onOpenAddressView: () => void;
   onOpenLegal: () => void;
+  onOpenHardware?: () => void;
 }
 
 export const SettingsScreen: React.FC<SettingsScreenProps> = ({
@@ -44,6 +45,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
   onOpenBackupSeed,
   onOpenAddressView,
   onOpenLegal,
+  onOpenHardware,
 }) => {
   const {
     walletName,
@@ -296,6 +298,57 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             <ChevronRight size={14} />
           </div>
         </button>
+      </div>
+
+      {/* Web3, Chains & Hardware */}
+      <div className="p-4 rounded-3xl bg-white border border-slate-200 shadow-xs space-y-2">
+        <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Web3 & Advanced Security</h4>
+
+        <button
+          onClick={() => setCurrentScreen('security_scanner')}
+          className="w-full flex items-center justify-between py-2 text-xs text-slate-700 hover:text-slate-900 transition-colors"
+        >
+          <div className="flex items-center gap-2.5">
+            <Shield size={16} className="text-emerald-600" />
+            <span className="font-semibold">Security Shield & Risk Scanner</span>
+          </div>
+          <ChevronRight size={14} className="text-slate-400" />
+        </button>
+
+        <button
+          onClick={() => setCurrentScreen('walletconnect')}
+          className="w-full flex items-center justify-between py-2 border-t border-slate-100 text-xs text-slate-700 hover:text-slate-900 transition-colors"
+        >
+          <div className="flex items-center gap-2.5">
+            <QrCode size={16} className="text-sky" />
+            <span className="font-semibold">WalletConnect v2 Sessions</span>
+          </div>
+          <ChevronRight size={14} className="text-slate-400" />
+        </button>
+
+        <button
+          onClick={() => setCurrentScreen('multichain')}
+          className="w-full flex items-center justify-between py-2 border-t border-slate-100 text-xs text-slate-700 hover:text-slate-900 transition-colors"
+        >
+          <div className="flex items-center gap-2.5">
+            <KeyRound size={16} className="text-amber-500" />
+            <span className="font-semibold">Multi-Chain Hub (BTC, SOL, TRX, ATOM)</span>
+          </div>
+          <ChevronRight size={14} className="text-slate-400" />
+        </button>
+
+        {onOpenHardware && (
+          <button
+            onClick={onOpenHardware}
+            className="w-full flex items-center justify-between py-2 border-t border-slate-100 text-xs text-slate-700 hover:text-slate-900 transition-colors"
+          >
+            <div className="flex items-center gap-2.5">
+              <Lock size={16} className="text-coral" />
+              <span className="font-semibold">Hardware Wallet (Ledger & Trezor)</span>
+            </div>
+            <ChevronRight size={14} className="text-slate-400" />
+          </button>
+        )}
       </div>
 
       {/* Security & Legal */}

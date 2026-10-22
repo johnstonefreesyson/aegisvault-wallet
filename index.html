@@ -3,10 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Strict Content Security Policy for Web3 non-custodial wallet protection -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https: blob:; connect-src 'self' https: wss:; object-src 'none'; base-uri 'self'; frame-src 'self' https://global.transak.com https://buy.moonpay.com https://app.ramp.network https://verify.walletconnect.org https://verify.walletconnect.com;"
+    />
     <title>AegisVault Multi-Chain Crypto Wallet</title>
-    <meta name="description" content="Production-grade, non-custodial multi-chain cryptocurrency wallet with BIP-39 key derivation, Ethereum, BSC, and Polygon support, real-time balance queries, market data, and secure transaction workflows." />
+    <meta name="description" content="Production-grade, non-custodial multi-chain cryptocurrency wallet with BIP-39 key derivation, Ethereum, BSC, Polygon, Solana, Bitcoin, Tron, and Cosmos support, real-time balance queries, market data, and secure transaction workflows." />
     <meta property="og:title" content="AegisVault Multi-Chain Crypto Wallet" />
-    <meta property="og:description" content="Production-grade, non-custodial multi-chain cryptocurrency wallet with BIP-39 key derivation, Ethereum, BSC, and Polygon support, real-time balance queries, market data, and secure transaction workflows." />
+    <meta property="og:description" content="Production-grade, non-custodial multi-chain cryptocurrency wallet with BIP-39 key derivation, Ethereum, BSC, Polygon, Solana, Bitcoin, Tron, and Cosmos support, real-time balance queries, market data, and secure transaction workflows." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#f6f8fd" />
@@ -15,13 +20,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <link rel="apple-touch-icon" href="/logo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
   <body class="bg-white text-ink antialiased selection:bg-peach selection:text-ink">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

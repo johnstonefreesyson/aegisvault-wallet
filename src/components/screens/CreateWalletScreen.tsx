@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowLeft, ShieldAlert, Copy, Check, Eye, EyeOff, Lock, CheckCircle2 } from 'lucide-react';
 import { WalletManager } from '../../services/blockchain/walletManager';
 import { useWallet } from '../../store/WalletContext';
+import { evaluatePasscode } from '../../utils/passcodeSecurity';
 
 export const CreateWalletScreen: React.FC = () => {
   const { setCurrentScreen, createWallet, showToast } = useWallet();
@@ -71,8 +72,9 @@ export const CreateWalletScreen: React.FC = () => {
       setErrorMsg('Please enter a wallet name.');
       return;
     }
-    if (passcode.length < 6) {
-      setErrorMsg('Security passcode must be at least 6 characters.');
+    const strength = evaluatePasscode(passcode);
+    if (!strength.isValid) {
+      setErrorMsg(strength.feedback[0] || 'Passcode is too weak. Please use at least 8 characters with fair complexity.');
       return;
     }
     if (passcode !== confirmPasscode) {
@@ -173,17 +175,42 @@ export const CreateWalletScreen: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1.5">
-                  Security Passcode / PIN (min 6 characters)
-                </label>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-xs font-medium text-slate-600">
+                    Security Passcode / PIN (min 8 characters)
+                  </label>
+                  {passcode && (
+                    <span
+                      className="text-[11px] font-semibold"
+                      style={{ color: evaluatePasscode(passcode).color }}
+                    >
+                      {evaluatePasscode(passcode).label}
+                    </span>
+                  )}
+                </div>
                 <input
                   type="password"
                   value={passcode}
                   onChange={(e) => setPasscode(e.target.value)}
                   placeholder="Enter strong passcode"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 border border-slate-200 focus:border-cyan-500 focus:outline-none text-sm text-ink placeholder-slate-400"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 border border-slate-200 focus:border-cyan-500 focus:outline-none text-sm text-ink placeholder-slate-400 font-mono"
                   required
                 />
+                {passcode && (
+                  <div className="mt-2 space-y-1">
+                    <div className="grid grid-cols-4 gap-1 h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
+                      <div className={`h-full rounded-full transition-all ${evaluatePasscode(passcode).score >= 1 ? 'bg-amber-500' : 'bg-transparent'}`} />
+                      <div className={`h-full rounded-full transition-all ${evaluatePasscode(passcode).score >= 2 ? 'bg-amber-500' : 'bg-transparent'}`} />
+                      <div className={`h-full rounded-full transition-all ${evaluatePasscode(passcode).score >= 3 ? 'bg-emerald-500' : 'bg-transparent'}`} />
+                      <div className={`h-full rounded-full transition-all ${evaluatePasscode(passcode).score >= 4 ? 'bg-emerald-600' : 'bg-transparent'}`} />
+                    </div>
+                    {evaluatePasscode(passcode).feedback.length > 0 && (
+                      <p className="text-[11px] text-slate-500 leading-tight">
+                        {evaluatePasscode(passcode).feedback[0]}
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div>

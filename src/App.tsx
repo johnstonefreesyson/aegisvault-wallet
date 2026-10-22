@@ -44,6 +44,13 @@ const ApprovalsScreen = lazy(() => import('./components/screens/ApprovalsScreen'
 const SwapScreen = lazy(() => import('./components/screens/SwapScreen').then((m) => ({ default: m.SwapScreen })));
 const NftScreen = lazy(() => import('./components/screens/NftScreen').then((m) => ({ default: m.NftScreen })));
 const PriceAlertsScreen = lazy(() => import('./components/screens/PriceAlertsScreen').then((m) => ({ default: m.PriceAlertsScreen })));
+const WalletConnectScreen = lazy(() => import('./components/screens/WalletConnectScreen').then((m) => ({ default: m.WalletConnectScreen })));
+const MultiChainScreen = lazy(() => import('./components/screens/MultiChainScreen').then((m) => ({ default: m.MultiChainScreen })));
+const StakingScreen = lazy(() => import('./components/screens/StakingScreen').then((m) => ({ default: m.StakingScreen })));
+const BridgeScreen = lazy(() => import('./components/screens/BridgeScreen').then((m) => ({ default: m.BridgeScreen })));
+const SecurityScannerScreen = lazy(() => import('./components/screens/SecurityScannerScreen').then((m) => ({ default: m.SecurityScannerScreen })));
+const BuySellModal = lazy(() => import('./components/screens/BuySellModal').then((m) => ({ default: m.BuySellModal })));
+const HardwareWalletModal = lazy(() => import('./components/screens/HardwareWalletModal').then((m) => ({ default: m.HardwareWalletModal })));
 
 const ScreenFallback: React.FC = () => (
   <div className="flex-1 flex items-center justify-center py-24" role="status" aria-label="Loading">
@@ -75,6 +82,8 @@ const MainAppContent: React.FC = () => {
   const [isBackupSeedOpen, setIsBackupSeedOpen] = useState(false);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [isAccountsOpen, setIsAccountsOpen] = useState(false);
+  const [isBuySellOpen, setIsBuySellOpen] = useState(false);
+  const [isHardwareModalOpen, setIsHardwareModalOpen] = useState(false);
 
   // Splash Screen initial display
   if (currentScreen === 'splash') {
@@ -136,6 +145,7 @@ const MainAppContent: React.FC = () => {
             }}
             onOpenAddToken={() => setIsAddTokenOpen(true)}
             onOpenNetworkModal={() => setIsNetworkModalOpen(true)}
+            onOpenBuySell={() => setIsBuySellOpen(true)}
           />
         )}
 
@@ -176,6 +186,7 @@ const MainAppContent: React.FC = () => {
             onOpenBackupSeed={() => setIsBackupSeedOpen(true)}
             onOpenAddressView={() => setIsAddressModalOpen(true)}
             onOpenLegal={() => setCurrentScreen('legal_privacy')}
+            onOpenHardware={() => setIsHardwareModalOpen(true)}
           />
         )}
 
@@ -189,6 +200,11 @@ const MainAppContent: React.FC = () => {
         {currentScreen === 'price_alerts' && <PriceAlertsScreen onBack={() => setCurrentScreen('settings')} />}
         {currentScreen === 'swap' && <SwapScreen onBack={() => setCurrentScreen('dashboard')} />}
         {currentScreen === 'nfts' && <NftScreen onBack={() => setCurrentScreen('dashboard')} />}
+        {currentScreen === 'walletconnect' && <WalletConnectScreen onBack={() => setCurrentScreen('dashboard')} />}
+        {currentScreen === 'multichain' && <MultiChainScreen onBack={() => setCurrentScreen('dashboard')} />}
+        {currentScreen === 'staking' && <StakingScreen onBack={() => setCurrentScreen('dashboard')} />}
+        {currentScreen === 'bridge' && <BridgeScreen onBack={() => setCurrentScreen('dashboard')} />}
+        {currentScreen === 'security_scanner' && <SecurityScannerScreen onBack={() => setCurrentScreen('dashboard')} />}
       </div>
 
       {showBottomBar && <BottomTabBar />}
@@ -237,6 +253,16 @@ const MainAppContent: React.FC = () => {
         isOpen={isAccountsOpen}
         onClose={() => setIsAccountsOpen(false)}
         onShowAddress={() => setIsAddressModalOpen(true)}
+      />
+
+      <BuySellModal
+        isOpen={isBuySellOpen}
+        onClose={() => setIsBuySellOpen(false)}
+      />
+
+      <HardwareWalletModal
+        isOpen={isHardwareModalOpen}
+        onClose={() => setIsHardwareModalOpen(false)}
       />
       </Suspense>
     </div>

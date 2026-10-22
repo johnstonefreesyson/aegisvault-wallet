@@ -11,6 +11,12 @@ import {
   Plus,
   TrendingUp,
   TrendingDown,
+  CreditCard,
+  QrCode,
+  Coins,
+  ShieldCheck,
+  Zap,
+  Layers,
 } from 'lucide-react';
 import { useWallet } from '../../store/WalletContext';
 import { TokenIcon } from '../common/TokenIcon';
@@ -25,11 +31,17 @@ interface DashboardScreenProps {
   onOpenReceive: () => void;
   onOpenAddToken: () => void;
   onOpenNetworkModal: () => void;
+  onOpenBuySell: () => void;
 }
 
 const shortAddr = (a: string) => (a ? `${a.slice(0, 6)}…${a.slice(-4)}` : '');
 
-export const DashboardScreen: React.FC<DashboardScreenProps> = ({ onOpenSend, onOpenReceive, onOpenNetworkModal }) => {
+export const DashboardScreen: React.FC<DashboardScreenProps> = ({
+  onOpenSend,
+  onOpenReceive,
+  onOpenNetworkModal,
+  onOpenBuySell,
+}) => {
   const {
     visibleTokens,
     tokens,
@@ -95,8 +107,8 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ onOpenSend, on
   const actions = [
     { label: 'Send', icon: ArrowUpRight, onClick: onOpenSend, primary: true },
     { label: 'Receive', icon: ArrowDownLeft, onClick: onOpenReceive },
+    { label: 'Buy / Sell', icon: CreditCard, onClick: onOpenBuySell },
     { label: 'Swap', icon: ArrowLeftRight, onClick: () => setCurrentScreen('swap') },
-    { label: 'NFTs', icon: ImageIcon, onClick: () => setCurrentScreen('nfts') },
   ];
 
   return (
@@ -185,6 +197,111 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ onOpenSend, on
                   ))}
                 </div>
               </div>
+            </div>
+
+            {/* Web3 Power Hub */}
+            <div className="mt-4 grid grid-cols-2 gap-2.5">
+              <button
+                onClick={() => setCurrentScreen('walletconnect')}
+                className="p-3.5 rounded-2xl bg-card border border-slate-200/80 hover:border-coral/60 transition-all text-left group shadow-xs"
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="w-8 h-8 rounded-xl bg-sky/15 text-navy flex items-center justify-center">
+                    <QrCode size={16} />
+                  </div>
+                  <span className="text-[10px] bg-slate-100 text-slate-700 font-bold px-1.5 py-0.5 rounded-md">
+                    dApps
+                  </span>
+                </div>
+                <span className="text-xs font-bold text-ink group-hover:text-coral transition-colors block">
+                  WalletConnect
+                </span>
+                <span className="text-[10px] text-muted block truncate">
+                  Connect Uniswap & dApps
+                </span>
+              </button>
+
+              <button
+                onClick={() => setCurrentScreen('staking')}
+                className="p-3.5 rounded-2xl bg-card border border-slate-200/80 hover:border-coral/60 transition-all text-left group shadow-xs"
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                    <Coins size={16} />
+                  </div>
+                  <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded-md">
+                    14.8% APY
+                  </span>
+                </div>
+                <span className="text-xs font-bold text-ink group-hover:text-coral transition-colors block">
+                  Earn & Stake
+                </span>
+                <span className="text-[10px] text-muted block truncate">
+                  ETH, SOL, ATOM, BNB
+                </span>
+              </button>
+
+              <button
+                onClick={() => setCurrentScreen('bridge')}
+                className="p-3.5 rounded-2xl bg-card border border-slate-200/80 hover:border-coral/60 transition-all text-left group shadow-xs"
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="w-8 h-8 rounded-xl bg-peach/40 text-ink flex items-center justify-center">
+                    <Layers size={16} />
+                  </div>
+                  <span className="text-[10px] bg-slate-100 text-slate-700 font-bold px-1.5 py-0.5 rounded-md">
+                    LI.FI
+                  </span>
+                </div>
+                <span className="text-xs font-bold text-ink group-hover:text-coral transition-colors block">
+                  Bridge
+                </span>
+                <span className="text-[10px] text-muted block truncate">
+                  Cross-chain transfer
+                </span>
+              </button>
+
+              <button
+                onClick={() => setCurrentScreen('multichain')}
+                className="p-3.5 rounded-2xl bg-card border border-slate-200/80 hover:border-coral/60 transition-all text-left group shadow-xs"
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                    <TrendingUp size={16} />
+                  </div>
+                  <span className="text-[10px] bg-slate-100 text-slate-700 font-bold px-1.5 py-0.5 rounded-md">
+                    Multi-Chain
+                  </span>
+                </div>
+                <span className="text-xs font-bold text-ink group-hover:text-coral transition-colors block">
+                  Non-EVM Hub
+                </span>
+                <span className="text-[10px] text-muted block truncate">
+                  BTC, SOL, TRX, ATOM
+                </span>
+              </button>
+
+              <button
+                onClick={() => setCurrentScreen('security_scanner')}
+                className="col-span-2 p-3 rounded-2xl bg-card border border-slate-200/80 hover:border-coral/60 transition-all flex items-center justify-between group shadow-xs"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                    <ShieldCheck size={16} />
+                  </div>
+                  <div className="text-left">
+                    <span className="text-xs font-bold text-ink group-hover:text-coral transition-colors block leading-tight">
+                      Security Shield & Risk Scanner
+                    </span>
+                    <span className="text-[10px] text-muted leading-tight">
+                      Honeypots, poisoning & pre-signing simulation
+                    </span>
+                  </div>
+                </div>
+                <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">
+                  Active
+                </span>
+              </button>
             </div>
           </section>
 

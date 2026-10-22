@@ -1,0 +1,6 @@
+{
+  "name": "AegisVault Multi-Chain Crypto Wallet",
+  "description": "Production-grade, non-custodial multi-chain cryptocurrency wallet with BIP-39 key derivation, Ethereum, BSC, and Polygon support, real-time balance queries, market data, and secure transaction workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

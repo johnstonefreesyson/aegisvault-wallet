@@ -1,0 +1,22 @@
+{
+  "name": "aegisvault-backend",
+  "version": "1.0.0",
+  "description": "NestJS / Node.js API Service for AegisVault Multi-Chain Crypto Wallet",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "tsx watch src/main.ts"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "ethers": "^6.13.0",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.7.0"
+  }
+}

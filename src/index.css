@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Brand palette (light theme) */
+  /* "white" is the page surface everywhere (bg-white), so tint it; cards are true white on top */
+  --color-white: #f6f8fd;
+  --color-page: #f6f8fd;
+  --color-card: #ffffff;
+  --color-ink: #121a2b;
+  --color-muted: #7a859c;
+  --color-navy: #1a2a52;
+  --color-peach: #ffdac4;
+  --color-peach-hover: #ffcdb1;
+  --color-coral: #f4693f;
+  --color-sky: #5aaef0;
+
+  /* Re-map the accent scale used across older screens (cyan) to the coral/peach brand accent */
+  --color-cyan-50: #fff3ec;
+  --color-cyan-100: #ffe4d4;
+  --color-cyan-200: #ffcdb1;
+  --color-cyan-300: #ffb08a;
+  --color-cyan-400: #fa8a5f;
+  --color-cyan-500: #f4693f;
+  --color-cyan-600: #e0522a;
+  --color-cyan-700: #bd421f;
+  --color-cyan-800: #983820;
+  --color-cyan-900: #7a3020;
+  --color-cyan-950: #43170c;
+}
+
+@layer base {
+  html, body { background: var(--color-white); }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-mono, code, pre {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+}
+
+@layer components {
+  /* Soft brand-tinted wash behind app screens: sky glow top-left, coral glow top-right */
+  .page-wash {
+    background-color: var(--color-white);
+    background-image:
+      radial-gradient(48rem 26rem at -8% -6%, rgba(90,174,240,.16), transparent 62%),
+      radial-gradient(44rem 24rem at 108% -4%, rgba(244,105,63,.09), transparent 62%);
+    background-repeat: no-repeat;
+  }
+  /* White cards lift off the tinted page with a hairline + soft navy shadow */
+  .bg-card {
+    box-shadow: 0 0 0 1px rgba(26,42,82,.06), 0 2px 8px -2px rgba(26,42,82,.08);
+  }
+  .btn-primary {
+    background: var(--color-peach);
+    color: #121a2b; /* stays dark in both themes: peach is light in both */
+    border-radius: 1rem;
+    height: 3.25rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    display: flex; align-items: center; justify-content: center; gap: .5rem;
+    transition: background .15s, transform .1s;
+  }
+  .btn-primary:hover { background: var(--color-peach-hover); }
+  .btn-primary:active { transform: scale(.99); }
+  .btn-primary:disabled { opacity: .5; }
+  .btn-secondary {
+    background: var(--color-card);
+    color: #33415f;
+    box-shadow: 0 0 0 1px rgba(26,42,82,.10), 0 2px 8px -2px rgba(26,42,82,.08);
+    border-radius: 1rem;
+    height: 3.25rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    display: flex; align-items: center; justify-content: center; gap: .5rem;
+    transition: background .15s;
+  }
+  .btn-secondary:hover { background: #f6f8fd; }
+  .btn-primary { box-shadow: 0 6px 16px -6px rgba(244,105,63,.55); }
+  .btn-primary:disabled { box-shadow: none; }
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(148,163,184,.4); border-radius: 9999px; }
+
+/* ---------- Dark theme ----------
+   Utilities across the app read these theme variables, so redefining them under
+   `.dark` re-skins every screen (the scale is inverted: "white" is the page). */
+.dark {
+  --color-white: #0e1420;
+  --color-page: #0e1420;
+  --color-card: #1a2335;
+  --color-ink: #eef2f9;
+  --color-muted: #93a0b8;
+  --color-slate-50: #131b2b;
+  --color-slate-100: #1a2335;
+  --color-slate-200: #2a3550;
+  --color-slate-300: #3a4766;
+  --color-slate-400: #8592ab;
+  --color-slate-500: #9aa6bd;
+  --color-slate-600: #b4bed1;
+  --color-slate-700: #ccd4e2;
+  --color-slate-800: #e2e7f1;
+  --color-slate-900: #eef2f9;
+  --color-slate-950: #f6f8fc;
+  --color-rose-50: #3a1a22;
+  --color-rose-100: #4a1f2a;
+  --color-rose-200: #6b2b3a;
+  --color-rose-500: #fb7185;
+  --color-rose-600: #fb7185;
+  --color-rose-700: #fda4af;
+  --color-rose-800: #fecdd3;
+  --color-emerald-50: #10302a;
+  --color-emerald-200: #1d5a49;
+  --color-emerald-600: #34d399;
+  --color-emerald-700: #6ee7b7;
+  --color-amber-50: #3a2d12;
+  --color-amber-200: #6b4f17;
+  --color-amber-300: #8a6720;
+  --color-amber-600: #fbbf24;
+  --color-amber-700: #fcd34d;
+  --color-amber-800: #fde68a;
+  --color-amber-900: #fef3c7;
+  --color-cyan-50: #3a2218;
+  --color-cyan-100: #4a2a1c;
+  --color-cyan-200: #6b3a26;
+  --color-cyan-600: #fa8a5f;
+  --color-cyan-700: #ffb08a;
+  --color-cyan-800: #ffcdb1;
+}
+.dark .page-wash {
+  background-image:
+    radial-gradient(48rem 26rem at -8% -6%, rgba(90,174,240,.10), transparent 62%),
+    radial-gradient(44rem 24rem at 108% -4%, rgba(244,105,63,.08), transparent 62%);
+}
+.dark .bg-card { box-shadow: 0 0 0 1px rgba(255,255,255,.05); }
+.dark .btn-secondary { box-shadow: 0 0 0 1px rgba(255,255,255,.08); }
+.dark .bg-peach,
+.dark .hover\:bg-peach-hover:hover { color: #121a2b; }
+.dark .btn-secondary { color: #ccd4e2; }
+.dark .btn-secondary:hover { background: #222d44; }
+.dark input, .dark textarea, .dark select { color-scheme: dark; }
